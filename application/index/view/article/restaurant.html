@@ -1,0 +1,136 @@
+{extend name="base" /}
+{block name="title"}简单旅行{/block}
+{block name="nav"}
+<li class="nav-item"><a href="/" class="nav-link">首页</a></li>
+<li class="nav-item"><a href="/places" class="nav-link">景点</a></li>
+<li class="nav-item"><a href="/hotels" class="nav-link">酒店</a></li>
+<li class="nav-item active"><a href="/restaurants" class="nav-link">餐厅</a></li>
+<li class="nav-item"><a href="/blogs" class="nav-link">分享</a></li>
+{/block}
+{block name="content"}
+{volist name="place" id="vo"}
+<div class="hero-wrap js-fullheight" style="background-image: url('/static/front/images/bg_1.jpg');">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row no-gutters slider-text js-fullheight align-items-center justify-content-center" data-scrollax-parent="true">
+            <div class="col-md-9 text-center ftco-animate" data-scrollax=" properties: { translateY: '70%' }">
+                <h1 class="mb-3 bread" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">餐厅详情</h1>
+            </div>
+        </div>
+    </div>
+</div>
+<section class="ftco-section ftco-degree-bg">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 sidebar order-md-last">
+                <div class="sidebar-wrap ftco-animate">
+                    <h3 class="heading mb-4">预订信息</h3>
+                    <form onsubmit="return false;" id="restaurant_form">
+                        <input type="hidden" name="item_id" id="L_item_id" value="{$vo.id}">
+                        <input type="hidden" name="item_name" id="L_item_name" value="{$vo.title}">
+                        <div class="fields">
+                            预订人数：
+                            <div class="form-group">
+                                <div class="select-wrap one-third">
+                                    <div class="icon"><span class="ion-ios-arrow-down"></span></div>
+                                    <select name="amount" id="L_amount" class="form-control" placeholder="Keyword search">
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                    </select>
+                                </div>
+                            </div>
+                            预订时间：
+                            <div class="form-group">
+                                <input type="text" name="book_time" id="checkin_date" class="form-control checkin_date" placeholder="Date from">
+                            </div>
+                            <div class="form-group">
+                                <input type="submit" id="restaurant_btn" value="提交订单" class="btn btn-primary py-3 px-5">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="col-lg-9">
+                <div class="row">
+                    <div class="col-md-12 ftco-animate">
+                        <div class="single-slider owl-carousel">
+                            <div class="item">
+                                <div class="hotel-img" style="background-image: url({$vo.img});"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12 hotel-single mt-4 mb-5 ftco-animate">
+                        <h2>{$vo.title}</h2>
+                        <p class="rate mb-5">
+                            <span class="loc"><a href="#"><i class="icon-map"></i> {$vo.create_time}, {$vo.position}</a></span>
+                        </p>
+                        {$vo.content}
+                    </div>
+                    <div class="col-md-12 hotel-single ftco-animate mb-5 mt-4">
+                        <h4 class="mb-4">推荐菜式</h4>
+                        <div class="row">
+                            {volist name="$vo->items" id="item"}
+                            <div class="col-md-4">
+                                <div class="destination">
+                                    <a href="hotel-single.html" class="img img-2" style="background-image: url({$item.img});"></a>
+                                    <div class="text p-3">
+                                        <div class="d-flex">
+                                            <div class="one">
+                                                <h3><a href="hotel-single.html">{$item.name}</a></h3>
+                                                <p class="rate">
+                                                    <i class="icon-star"></i>
+                                                    <i class="icon-star"></i>
+                                                    <i class="icon-star"></i>
+                                                    <i class="icon-star"></i>
+                                                    <i class="icon-star-o"></i>
+                                                    <span>8 Rating</span>
+                                                </p>
+                                            </div>
+                                            <div class="two">
+                                                <span class="price per-price">¥{$item.price}<br><small></small></span>
+                                            </div>
+                                        </div>
+                                        <p>{$item.outline}</p>
+                                        <hr>
+                                        <p class="bottom-area d-flex">
+                                            <span><i class="icon-map-o"></i> {$item.create_time}</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            {/volist}
+                        </div>
+                    </div>
+                </div>
+            </div> <!-- .col-md-8 -->
+        </div>
+    </div>
+</section> <!-- .section -->
+{/volist}
+{/block}
+
+{block name="script"}
+<script>
+    $("#restaurant_btn").click(function(){
+        var postData = $("#restaurant_form").serializeArray();
+        $.ajax({
+            type:'post',
+            dataType:'json',
+            async:false,
+            data:postData,
+            url:'/addOrder',
+            success:function(data){
+                if(data.state === 1) {
+                    alert("订单添加成功");
+                    location.reload();
+                } else {
+                    alert(data.msg);
+                }
+            }
+        });
+    });
+</script>>
+{/block}

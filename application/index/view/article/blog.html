@@ -1,0 +1,110 @@
+{extend name="base" /}
+{block name="title"}简单旅行{/block}
+{block name="nav"}
+<li class="nav-item"><a href="/" class="nav-link">首页</a></li>
+<li class="nav-item"><a href="/places" class="nav-link">景点</a></li>
+<li class="nav-item"><a href="/hotels" class="nav-link">酒店</a></li>
+<li class="nav-item"><a href="/restaurants" class="nav-link">餐厅</a></li>
+<li class="nav-item active"><a href="/blogs" class="nav-link">分享</a></li>
+{/block}
+{block name="content"}
+{volist name="place" id="vo"}
+<div class="hero-wrap js-fullheight" style="background-image: url('/static/front/images/bg_1.jpg');">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row no-gutters slider-text js-fullheight align-items-center justify-content-center"
+             data-scrollax-parent="true">
+            <div class="col-md-9 text-center ftco-animate" data-scrollax=" properties: { translateY: '70%' }">
+                <h1 class="mb-3 bread" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">{$vo.title}</h1>
+            </div>
+        </div>
+    </div>
+</div>
+<section class="ftco-section ftco-degree-bg">
+    <div class="container">
+
+        <div class="row">
+            <div class="col-md-8 ftco-animate">
+                {$vo.content}
+                <div class="tag-widget post-tag-container mb-5 mt-5">
+                    <div class="tagcloud">
+                        <a href="javascript:;" class="tag-cloud-link">生活</a>
+                        <a href="javascript:;" class="tag-cloud-link">运动</a>
+                        <a href="javascript:;" class="tag-cloud-link">旅行</a>
+                    </div>
+                </div>
+                <hr>
+                <div class="pt-5 mt-5">
+                    <ul class="comment-list">
+                        {volist name="$vo->comments" id="comment"}
+                        <li class="comment">
+                            <div class="vcard bio">
+                                <img src="/static/front/images/person_1.jpg" alt="Image placeholder">
+                            </div>
+                            <div class="comment-body">
+                                <h3>{$comment->username}</h3>
+                                <div class="meta">{$comment->create_time}</div>
+                                <p>{$comment->comment}</p>
+                            </div>
+                        </li>
+                        {/volist}
+                    </ul>
+                    <!-- END comment-list -->
+
+                    <div class="comment-form-wrap pt-5">
+                        <h3 class="mb-5">写留言</h3>
+                        <form id="comment_form" onsubmit="return false;" class="p-5 bg-light">
+                            <input type="hidden" name="pid" value="{$vo.id}" />
+                            <div class="form-group">
+                                <label for="message">内容</label>
+                                <textarea name="comment" id="L_comment" cols="30" rows="10"
+                                          class="form-control"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <input id="comment_btn" type="submit" value="提交" class="btn py-3 px-4 btn-primary">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div> <!-- .col-md-8 -->
+            <div class="col-md-4 sidebar ftco-animate">
+                <div class="sidebar-box ftco-animate">
+                    <div class="categories">
+                        <h3>目录</h3>
+                        <li><a href="javascript:;">旅行 <span>(12)</span></a></li>
+                        <li><a href="javascript:;">酒店 <span>(22)</span></a></li>
+                        <li><a href="javascript:;">咖啡 <span>(37)</span></a></li>
+                        <li><a href="javascript:;">甜点 <span>(42)</span></a></li>
+                        <li><a href="javascript:;">美食 <span>(14)</span></a></li>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section> <!-- .section -->
+{/volist}
+{/block}
+{block name="script"}
+<script>
+    $('#comment_btn').click(function () {
+        var postData = $('#comment_form').serializeArray();
+        if($.trim(postData[1].value) === '') {
+            return false;
+        }
+        $.ajax({
+            type: 'post',
+            dataType: 'json',
+            async: false,
+            data: postData,
+            url: '/addComment',
+            success: function (data) {
+               if(data.state === 1) {
+                    location.reload();
+               } else {
+                    alert(data.msg);
+               }
+            }
+        });
+    });
+</script>>
+{/block}

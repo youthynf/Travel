@@ -1,0 +1,513 @@
+<!--{layout name="layout" /}-->
+<div class="hero-wrap js-fullheight" style="background-image: url('static/front/images/bg_1.jpg');">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row no-gutters slider-text js-fullheight align-items-center justify-content-start" data-scrollax-parent="true">
+            <div class="col-md-9 ftco-animate mb-5 pb-5 text-center text-md-left" data-scrollax=" properties: { translateY: '70%' }">
+                <h1 class="mb-4" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">发现 <br>一个新的旅游胜地</h1>
+                <p data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">找寻一个美好的地方停下脚步，尽情游玩，感受生活之美</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<section class="ftco-section justify-content-end ftco-search" style="display: none;">
+    <div class="container-wrap ml-auto">
+        <div class="row no-gutters">
+            <div class="col-md-12 nav-link-wrap">
+                <div class="nav nav-pills justify-content-center text-center" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                    <a class="nav-link active" id="v-pills-1-tab" data-toggle="pill" href="#v-pills-1" role="tab" aria-controls="v-pills-1" aria-selected="true">机票</a>
+
+                    <a class="nav-link" id="v-pills-2-tab" data-toggle="pill" href="#v-pills-2" role="tab" aria-controls="v-pills-2" aria-selected="false">酒店</a>
+
+                    <a class="nav-link" id="v-pills-3-tab" data-toggle="pill" href="#v-pills-3" role="tab" aria-controls="v-pills-3" aria-selected="false">租车</a>
+                </div>
+            </div>
+            <div class="col-md-12 tab-wrap">
+
+                <div class="tab-content p-4 px-5" id="v-pills-tabContent">
+
+                    <div class="tab-pane fade show active" id="v-pills-1" role="tabpanel" aria-labelledby="v-pills-nextgen-tab">
+                        <form action="#" class="search-destination">
+                            <div class="row">
+                                <div class="col-md align-items-end">
+                                    <div class="form-group">
+                                        <label for="#">出发点</label>
+                                        <div class="form-field">
+                                            <div class="icon"><span class="icon-my_location"></span></div>
+                                            <input type="text" class="form-control" placeholder="From">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md align-items-end">
+                                    <div class="form-group">
+                                        <label for="#">目的地</label>
+                                        <div class="form-field">
+                                            <div class="icon"><span class="icon-map-marker"></span></div>
+                                            <input type="text" class="form-control" placeholder="Where">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md align-items-end">
+                                    <div class="form-group">
+                                        <label for="#">预订开始</label>
+                                        <div class="form-field">
+                                            <div class="icon"><span class="icon-map-marker"></span></div>
+                                            <input type="text" class="form-control checkin_date" placeholder="Check In">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md align-items-end">
+                                    <div class="form-group">
+                                        <label for="#">预订结束</label>
+                                        <div class="form-field">
+                                            <div class="icon"><span class="icon-map-marker"></span></div>
+                                            <input type="text" class="form-control checkout_date" placeholder="From">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md align-items-end">
+                                    <div class="form-group">
+                                        <label for="#">同行人数</label>
+                                        <div class="form-field">
+                                            <div class="select-wrap">
+                                                <div class="icon"><span class="ion-ios-arrow-down"></span></div>
+                                                <select name="" id="" class="form-control">
+                                                    <option value="">1</option>
+                                                    <option value="">2</option>
+                                                    <option value="">3</option>
+                                                    <option value="">4</option>
+                                                    <option value="">5</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md align-self-end">
+                                    <div class="form-group">
+                                        <div class="form-field">
+                                            <input type="submit" value="查询" class="form-control btn btn-primary">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="tab-pane fade" id="v-pills-2" role="tabpanel" aria-labelledby="v-pills-performance-tab">
+                        <form action="#" class="search-destination">
+                            <div class="row">
+                                <div class="col-md align-items-end">
+                                    <div class="form-group">
+                                        <label for="#">入住日期</label>
+                                        <div class="form-field">
+                                            <div class="icon"><span class="icon-map-marker"></span></div>
+                                            <input type="text" class="form-control checkin_date" placeholder="Check In">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md align-items-end">
+                                    <div class="form-group">
+                                        <label for="#">离开日期</label>
+                                        <div class="form-field">
+                                            <div class="icon"><span class="icon-map-marker"></span></div>
+                                            <input type="text" class="form-control checkout_date" placeholder="From">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md align-items-end">
+                                    <div class="form-group">
+                                        <label for="#">入住人数</label>
+                                        <div class="form-field">
+                                            <div class="select-wrap">
+                                                <div class="icon"><span class="ion-ios-arrow-down"></span></div>
+                                                <select name="" id="" class="form-control">
+                                                    <option value="">1</option>
+                                                    <option value="">2</option>
+                                                    <option value="">3</option>
+                                                    <option value="">4</option>
+                                                    <option value="">5</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md align-self-end">
+                                    <div class="form-group">
+                                        <div class="form-field">
+                                            <input type="submit" value="查询" class="form-control btn btn-primary">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="tab-pane fade" id="v-pills-3" role="tabpanel" aria-labelledby="v-pills-effect-tab">
+                        <form action="#" class="search-destination">
+                            <div class="row">
+                                <div class="col-md align-items-end">
+                                    <div class="form-group">
+                                        <label for="#">租车地点</label>
+                                        <div class="form-field">
+                                            <div class="icon"><span class="icon-map-marker"></span></div>
+                                            <input type="text" class="form-control" placeholder="Where">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md align-items-end">
+                                    <div class="form-group">
+                                        <label for="#">租车日期</label>
+                                        <div class="form-field">
+                                            <div class="icon"><span class="icon-map-marker"></span></div>
+                                            <input type="text" class="form-control checkin_date" placeholder="Check In">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md align-items-end">
+                                    <div class="form-group">
+                                        <label for="#">还车日期</label>
+                                        <div class="form-field">
+                                            <div class="icon"><span class="icon-map-marker"></span></div>
+                                            <input type="text" class="form-control checkout_date" placeholder="From">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md align-self-end">
+                                    <div class="form-group">
+                                        <div class="form-field">
+                                            <input type="submit" value="查询" class="form-control btn btn-primary">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="ftco-section bg-light">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="intro ftco-animate">
+                    <h3><span>01</span> 乐趣</h3>
+                    <p>旅游是生活中最大乐事，旅游虽然要花去不少的钱，但它给人们带来的欢乐无穷无尽，你能在旅途中收获得更多。</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="intro ftco-animate">
+                    <h3><span>02</span> 阅历</h3>
+                    <p>一次愉快的旅游会使你终身难忘，走向自然，陶冶情操，能让你真正的感受到最真实的自己，感受大自然的美好。</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="intro ftco-animate">
+                    <h3><span>03</span> 放松</h3>
+                    <p>外面的世界是很精彩的，长时间围困在钢筋水泥建筑里，终日里听到的是机器的隆隆声，各种车辆的马达声和城市的噪杂音。</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="ftco-section">
+    <div class="container">
+        <div class="row justify-content-center mb-5 pb-3">
+            <div class="col-md-7 heading-section text-center ftco-animate">
+                <h2 class="mb-4">热门景点推荐</h2>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="row">
+            {volist name="place_list" id="place" key="s"}
+            <div class="col-sm col-md-6 col-lg ftco-animate">
+                <div class='destination {if condition="$s % 2 == 1"} d-md-flex flex-column-reverse{/if}'>
+                    <a href="/place/{$place.id}" class="img img-2 d-flex justify-content-center align-items-center" style='background-image: url("{$place.img}");'>
+                        <div class="icon d-flex justify-content-center align-items-center">
+                            <span class="icon-link"></span>
+                        </div>
+                    </a>
+                    <div class="text p-3">
+                        <div class="d-flex">
+                            <div class="one">
+                                <h3><a href="#">{$place.title}</a></h3>
+                                <p class="rate">
+                                    <i class="icon-star"></i>
+                                    <i class="icon-star"></i>
+                                    <i class="icon-star"></i>
+                                    <i class="icon-star"></i>
+                                    <i class="icon-star-o"></i>
+                                    <span>8 Rating</span>
+                                </p>
+                            </div>
+                            <div class="two">
+                                <span class="price">¥{$place.price}</span>
+                            </div>
+                        </div>
+                        <p>{$place.outline}</p>
+                        <p class="days"><span>{$place.duration}</span></p>
+                        <hr>
+                        <p class="bottom-area d-flex">
+                            <span><i class="icon-map-o"></i> {$place.position}</span>
+                            <span class="ml-auto"><a href="/place/{$place.id}">Discover</a></span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            {/volist}
+        </div>
+    </div>
+</section>
+<section class="ftco-section ftco-counter img" id="section-counter" style="background-image: url(static/front/images/bg_1.jpg);" data-stellar-background-ratio="0.5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-10">
+                <div class="row">
+                    <div class="col-md-3 d-flex justify-content-center counter-wrap ftco-animate">
+                        <div class="block-18 text-center">
+                            <div class="text">
+                                <strong class="number" data-number="100000">0</strong>
+                                <span>服务客户</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 d-flex justify-content-center counter-wrap ftco-animate">
+                        <div class="block-18 text-center">
+                            <div class="text">
+                                <strong class="number" data-number="40000">0</strong>
+                                <span>风景名胜</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 d-flex justify-content-center counter-wrap ftco-animate">
+                        <div class="block-18 text-center">
+                            <div class="text">
+                                <strong class="number" data-number="87000">0</strong>
+                                <span>豪华酒店</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 d-flex justify-content-center counter-wrap ftco-animate">
+                        <div class="block-18 text-center">
+                            <div class="text">
+                                <strong class="number" data-number="56400">0</strong>
+                                <span>优质餐厅</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section class="ftco-section">
+    <div class="container">
+        <div class="row justify-content-center mb-5 pb-3">
+            <div class="col-md-7 heading-section text-center ftco-animate">
+                <h2 class="mb-4"><strong>最受欢迎</strong>酒店</h2>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="row">
+            {volist name="hotel_list" id="hotel" key="s"}
+            <div class="col-sm col-md-6 col-lg ftco-animate">
+                <div class='destination {if condition="$s % 2 == 1"} d-md-flex flex-column-reverse{/if}'>
+                    <a href="/hotel/{$hotel.id}" class="img img-2 d-flex justify-content-center align-items-center" style="background-image: url({$hotel.img});">
+                        <div class="icon d-flex justify-content-center align-items-center">
+                            <span class="icon-link"></span>
+                        </div>
+                    </a>
+                    <div class="text p-3">
+                        <div class="d-flex">
+                            <div class="one">
+                                <h3><a href="#">{$hotel.title}</a></h3>
+                                <p class="rate">
+                                    <i class="icon-star"></i>
+                                    <i class="icon-star"></i>
+                                    <i class="icon-star"></i>
+                                    <i class="icon-star"></i>
+                                    <i class="icon-star-o"></i>
+                                    <span>8 Rating</span>
+                                </p>
+                            </div>
+                            <div class="two">
+                                <span class="price per-price">¥{$hotel.price}<br><small>/night</small></span>
+                            </div>
+                        </div>
+                        <p>{$hotel.outline}</p>
+                        <hr>
+                        <p class="bottom-area d-flex">
+                            <span><i class="icon-map-o"></i> {$hotel.position}</span>
+                            <span class="ml-auto"><a href="/hotel/1">预订</a></span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            {/volist}
+        </div>
+    </div>
+</section>
+
+<section class="ftco-section testimony-section">
+    <div class="container">
+        <div class="row justify-content-center mb-5 pb-3">
+            <div class="col-md-7 text-center heading-section heading-section-white ftco-animate">
+                <h2 class="mb-4">我们赢得好评如潮</h2>
+                <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in</p>
+            </div>
+        </div>
+        <div class="row ftco-animate">
+            <div class="col-md-12">
+                <div class="carousel-testimony owl-carousel ftco-owl">
+                    <div class="item">
+                        <div class="testimony-wrap p-4 pb-5">
+                            <div class="user-img mb-5" style="background-image: url(static/front/images/person_1.jpg)">
+                    <span class="quote d-flex align-items-center justify-content-center">
+                      <i class="icon-quote-left"></i>
+                    </span>
+                            </div>
+                            <div class="text">
+                                <p class="mb-5">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+                                <p class="name">Mark Web</p>
+                                <span class="position">Marketing Manager</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="testimony-wrap p-4 pb-5">
+                            <div class="user-img mb-5" style="background-image: url(static/front/images/person_2.jpg)">
+                    <span class="quote d-flex align-items-center justify-content-center">
+                      <i class="icon-quote-left"></i>
+                    </span>
+                            </div>
+                            <div class="text">
+                                <p class="mb-5">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+                                <p class="name">Mark Web</p>
+                                <span class="position">Interface Designer</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="testimony-wrap p-4 pb-5">
+                            <div class="user-img mb-5" style="background-image: url(static/front/images/person_3.jpg)">
+                    <span class="quote d-flex align-items-center justify-content-center">
+                      <i class="icon-quote-left"></i>
+                    </span>
+                            </div>
+                            <div class="text">
+                                <p class="mb-5">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+                                <p class="name">Mark Web</p>
+                                <span class="position">UI Designer</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="testimony-wrap p-4 pb-5">
+                            <div class="user-img mb-5" style="background-image: url(static/front/images/person_1.jpg)">
+                    <span class="quote d-flex align-items-center justify-content-center">
+                      <i class="icon-quote-left"></i>
+                    </span>
+                            </div>
+                            <div class="text">
+                                <p class="mb-5">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+                                <p class="name">Mark Web</p>
+                                <span class="position">Web Developer</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="testimony-wrap p-4 pb-5">
+                            <div class="user-img mb-5" style="background-image: url(static/front/images/person_1.jpg)">
+                    <span class="quote d-flex align-items-center justify-content-center">
+                      <i class="icon-quote-left"></i>
+                    </span>
+                            </div>
+                            <div class="text">
+                                <p class="mb-5">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+                                <p class="name">Mark Web</p>
+                                <span class="position">System Analyst</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="ftco-section">
+    <div class="container">
+        <div class="row justify-content-center mb-5 pb-3">
+            <div class="col-md-7 heading-section text-center ftco-animate">
+                <h2 class="mb-4">高性价比餐厅推荐</h2>
+            </div>
+        </div>
+        <div class="row">
+            {volist name="restaurant_list" id="restaurant" key="s"}
+            <div class="col-md-6 col-lg-3 ftco-animate">
+                <div class='destination {if condition="$s % 2 == 1"} d-md-flex flex-column-reverse{/if}'>
+                    <a href="/restaurant/{$restaurant.id}" class="img img-2 d-flex justify-content-center align-items-center" style="background-image: url({$restaurant.img});">
+                        <div class="icon d-flex justify-content-center align-items-center">
+                            <span class="icon-link"></span>
+                        </div>
+                    </a>
+                    <div class="text p-3">
+                        <h3><a href="/restaurant/{$restaurant.id}">{$restaurant.title}</a></h3>
+                        <p class="rate">
+                            <i class="icon-star"></i>
+                            <i class="icon-star"></i>
+                            <i class="icon-star"></i>
+                            <i class="icon-star"></i>
+                            <i class="icon-star-o"></i>
+                            <span>8 Rating</span>
+                        </p>
+                        <p>{$restaurant.outline}</p>
+                        <hr>
+                        <p class="bottom-area d-flex">
+                            <span><i class="icon-map-o"></i> {$restaurant.position}</span>
+                            <span class="ml-auto"><a href="/restaurant/{$restaurant.id}">预订</a></span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            {/volist}
+        </div>
+    </div>
+</section>
+
+<section class="ftco-section bg-light">
+    <div class="container">
+        <div class="row justify-content-center mb-5 pb-3">
+            <div class="col-md-7 heading-section text-center ftco-animate">
+                <h2><strong>丰富多彩的旅途分享</strong></h2>
+            </div>
+        </div>
+        <div class="row d-flex">
+            {volist name="article_list" id="article" key="s"}
+            <div class="col-md-4 d-flex ftco-animate">
+                <div class="blog-entry align-self-stretch">
+                    <a href="/blog/{$article.id}" class="block-20" style="background-image: url('{$article.img}');">
+                    </a>
+                    <div class="text">
+                        <span class="tag">{$article.title}</span>
+                        <h3 class="heading mt-3"><a href="/blog/1">{$article.outline}</a></h3>
+                        <div class="meta mb-3">
+                            <div><a href="javascript:;">{$article.create_time}</a></div>
+                            <div><a href="javascript:;">Admin</a></div>
+                            <div><a href="javascript:;" class="meta-chat"><span class="icon-chat"></span> 3</a></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {/volist}
+        </div>
+    </div>
+</section>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>简简单单去旅行</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Abril+Fatface" rel="stylesheet">
+    <link rel="stylesheet" href="/static/front/css/open-iconic-bootstrap.min.css">
+    <link rel="stylesheet" href="/static/front/css/animate.css">
+    <link rel="stylesheet" href="/static/front/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="/static/front/css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="/static/front/css/magnific-popup.css">
+    <link rel="stylesheet" href="/static/front/css/aos.css">
+    <link rel="stylesheet" href="/static/front/css/ionicons.min.css">
+    <link rel="stylesheet" href="/static/front/css/bootstrap-datepicker.css">
+    <link rel="stylesheet" href="/static/front/css/jquery.timepicker.css">
+    <link rel="stylesheet" href="/static/front/css/flaticon.css">
+    <link rel="stylesheet" href="/static/front/css/icomoon.css">
+    <link rel="stylesheet" href="/static/front/css/style.css">
+    <style>
+        .contact-info div:hover {cursor: pointer; color:blue;}
+        .dropdown { position: relative; display: inline-block;}
+        .dropdown-content { display: none; position: absolute; background-color: #fff; width: 82px; height:90px; left: 8px; top: 40px; padding: 12px 12px; font-size:13px;}
+        .dropdown:hover .dropdown-content { display: block;}
+        .dropdown-content p:hover {cursor: pointer;color:#c1c1c1;}
+    </style>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
+    <div class="container">
+        <a class="navbar-brand" href="/">简单旅行</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="oi oi-menu"></span> Menu
+        </button>
+
+        <div class="collapse navbar-collapse" id="ftco-nav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item active"><a href="/" class="nav-link">首页</a></li>
+                <!--<li class="nav-item"><a href="/about" class="nav-link">简介</a></li>-->
+                <li class="nav-item"><a href="/places" class="nav-link">景点</a></li>
+                <li class="nav-item"><a href="/hotels" class="nav-link">酒店</a></li>
+                <li class="nav-item"><a href="/restaurants" class="nav-link">餐厅</a></li>
+                <li class="nav-item"><a href="/blogs" class="nav-link">分享</a></li>
+                <!--<li class="nav-item"><a href="/contact" class="nav-link">联系我们</a></li>-->
+                {if condition="$Request.session.username != null"}
+                <li class="nav-item dropdown">
+                    <a href="/user" class="nav-link" style="padding-right: 2px;">{$Request.session.username}</a>
+                    <div class="dropdown-content">
+                        <a href="/user" style="color:#000;"><p>个人中心</p></a>
+                        <a href="/user_logout" style="color:#000;"><p>退出登录</p></a>
+                    </div>
+                </li>
+                {else /}
+                <li class="nav-item"><a href="/user" class="nav-link" style="padding-right: 2px;">注册 | 登录</a></li>
+                {/if}
+            </ul>
+        </div>
+    </div>
+</nav>
+<!-- END nav -->

@@ -1,0 +1,402 @@
+{extend name="base" /}
+{block name="title"}简单旅行{/block}
+{block name="style"}
+<link href="/static/backend/lib/webuploader/0.1.5/webuploader.css" rel="stylesheet" type="text/css" />
+<style>
+    .webuploader-pick:hover{background:#2388d4;}
+</style>
+{/block}
+{block name="body"}
+<body class="layui-anim layui-anim-up">
+<div class="x-body">
+    <div class="layui-row">
+        <form class="layui-form layui-col-md12 x-so" action="/admin/article_list" method="get">
+            <input class="layui-input" placeholder="开始日" name="start" id="start" value="{$start}">
+            <input class="layui-input" placeholder="截止日" name="end" id="end" value="{$end}">
+            <input type="text" name="title" value="{$title}" placeholder="请输入文章标题" autocomplete="off" class="layui-input">
+            <button class="layui-btn"  lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></button>
+        </form>
+    </div>
+    <xblock>
+        <button class="layui-btn layui-btn-danger" onclick="delAll()"><i class="layui-icon"></i>批量删除</button>
+        <button class="layui-btn" id="new_place"><i class="layui-icon"></i>添加</button>
+        <!--<span class="x-right" style="line-height:40px">共有数据：88 条</span>-->
+    </xblock>
+    <table class="layui-table">
+        <thead>
+        <tr>
+            <th>
+                <div class="layui-unselect header layui-form-checkbox" lay-skin="primary"><i class="layui-icon">&#xe605;</i></div>
+            </th>
+            <th>ID</th>
+            <th>文章标题</th>
+            <th>图片</th>
+            <th>简介</th>
+            <th>添加时间</th>
+            <th>状态</th>
+            <th>操作</th></tr>
+        </thead>
+        <tbody>
+        {volist name="place_list" id="place"}
+        <tr>
+            <td>
+                <div class="layui-unselect layui-form-checkbox" lay-skin="primary" data-id='{$place.id}'><i class="layui-icon">&#xe605;</i></div>
+            </td>
+            <td>{$place.id}</td>
+            <td>{$place.title}</td>
+            <td><img src="{$place.img}"></td>
+            <td>{$place.outline}</td>
+            <td>{$place.create_time}</td>
+            <td class="td-status">
+                {if condition="$place.status == 0"}
+                <span class="layui-btn layui-btn-normal layui-btn-mini">已启用</span></td>
+            {else /}
+            <span class="layui-btn layui-btn-normal layui-btn-mini layui-btn-disabled">已停用</span></td>
+            {/if}
+            <td class="td-manage">
+                {if condition="$place.status == 0"}
+                <a onclick="member_stop(this,'{$place.id}')" href="javascript:;"  title="停用">
+                    <i class="layui-icon">&#xe601;</i>
+                </a>
+                {else /}
+                <a onclick="member_stop(this,'{$place.id}')" href="javascript:;"  title="启用">
+                    <i class="layui-icon">&#xe62f;</i>
+                </a>
+                {/if}
+                <a title="编辑" class="edit_user" href="javascript:;" data-text='{$place.content}' data-img="{$place.img}">
+                    <i class="layui-icon">&#xe642;</i>
+                </a>
+                <a title="删除" onclick="member_del(this,'{$place.id}')" href="javascript:;">
+                    <i class="layui-icon">&#xe640;</i>
+                </a>
+            </td>
+        </tr>
+        {/volist}
+        </tbody>
+    </table>
+    <div class="page">
+        <div>
+            <a class="prev" href="">&lt;&lt;</a>
+            <span class="current">1</span>
+            <a class="next" href="">&gt;&gt;</a>
+        </div>
+    </div>
+
+</div>
+<div id="content_form" class="x-body layui-anim layui-anim-up" style="display:none;">
+    <form class="layui-form" id="info">
+        <input id="L_id" type="hidden" value="" name="id" />
+        <div class="layui-form-item">
+            <label for="L_title" class="layui-form-label">
+                <span class="x-red">*</span>文章标题
+            </label>
+            <div class="layui-input-inline" style="width:800px;">
+                <input type="text" id="L_title" name="title" required="" lay-verify="nikename"
+                       autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label for="L_outline" class="layui-form-label">
+                <span class="x-red">*</span>文章简介
+            </label>
+            <div class="layui-input-inline" style="width:800px;">
+                <input type="text" id="L_outline" name="outline" required="" lay-verify="repass"
+                       autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <input type="hidden" id="L_img" name="img" />
+            <label class="layui-form-label">缩略图：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <div id="uploader" class="uploader-thum-container" style="float: left;margin-top: 6px;">
+                    <div id="thelist" class="uploader-list"></div>
+                    <div id="picker" class="" style="">选择图片</div>
+                </div>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                文章详情
+            </label>
+            <div class="layui-input-inline" style="width:800px;">
+                <script name="content" id="editor" type="text/plain" style="width:100%;height:300px;"></script>
+            </div>
+        </div>
+    </form>
+</div>
+{/block}
+{block name="script"}
+<script src="/static/backend/lib/ueditor/1.4.3/ueditor.config.js"></script>
+<script src="/static/backend/lib/ueditor/1.4.3/ueditor.all.min.js"></script>
+<script src="/static/backend/lib/webuploader/0.1.5/webuploader.min.js"></script>
+<script>
+    layui.use('laydate', function(){
+        var laydate = layui.laydate;
+
+        //执行一个laydate实例
+        laydate.render({
+            elem: '#start' //指定元素
+        });
+
+        //执行一个laydate实例
+        laydate.render({
+            elem: '#end' //指定元素
+        });
+    });
+
+    $('#new_place').on('click', function() {
+        $(".webuploader-pick").next().css("width","80px");
+        $(".webuploader-pick").next().css("height","30px");
+        $("#L_id").val("");
+        $("#L_title").val("");
+        $("#L_outline").val("");
+        $("#L_img").val("");
+        //页面层
+        layer.open({
+            type : 1, //Page层类型
+            skin : 'layui-layer-molv',
+            area : [ '1000px', '700px' ],
+            title : [ '新增文章', 'font-size:18px' ],
+            btn : [ '确定', '取消' ],
+            shadeClose : true,
+            shade : 0, //遮罩透明度
+            maxmin : true, //允许全屏最小化
+            content : $("#content_form"),
+            success : function() {
+            },
+            yes : function() {
+                var data = $("#info").serializeArray();
+                $.ajax({
+                    type:'post',
+                    dataType:'json',
+                    async:false,
+                    data:data,
+                    url:'/admin/saveArticle',
+                    success:function(data){
+                        if(data.state == 1) {
+                            layer.msg("文章新增成功", {time:2000}, function(){
+                                location.reload();
+                            });
+                        } else {
+                            layer.msg("文章新增失败", {time:2000});
+                        }
+                    }
+                });
+            }
+        });
+    });
+    var ue = UE.getEditor('editor',{
+        toolbars: [
+            ['fullscreen', 'source', 'undo', 'redo', 'bold', 'italic', 'underline', 'fontborder', 'strikethrough', 'superscript', 'subscript', 'removeformat', 'formatmatch', 'autotypeset', 'blockquote', 'pasteplain', '|', 'forecolor', 'backcolor', 'insertorderedlist', 'insertunorderedlist', 'selectall', 'cleardoc']
+        ],
+        autoHeightEnabled: false,
+        autoFloatEnabled: true
+    });
+
+    $('.edit_user').click(function(){
+        var tdArr = $(this).parent().siblings();
+        var content = $(this).attr('data-text');
+        $("#L_id").val(tdArr[1].innerHTML);
+        $("#L_title").val(tdArr[2].innerHTML);
+        $("#L_outline").val(tdArr[4].innerHTML);
+        $("#L_img").val($(this).attr('data-img'));
+        setTimeout(function(){
+            ue.execCommand('insertHtml', content);
+        }, 600);
+        layer.open({
+            type : 1, //Page层类型
+            skin : 'layui-layer-molv',
+            area : [ '1000px', '700px' ],
+            title : [ '编辑文章', 'font-size:18px' ],
+            btn : [ '确定', '取消' ],
+            shadeClose : true,
+            shade : 0, //遮罩透明度
+            maxmin : true, //允许全屏最小化
+            content : $("#content_form"),
+            success : function() {
+            },
+            yes : function() {
+                var data = $("#info").serializeArray();
+                $.ajax({
+                    type:'post',
+                    dataType:'json',
+                    async:false,
+                    data:data,
+                    url:'/admin/saveArticle',
+                    success:function(data){
+                        if(data.state == 1) {
+                            layer.msg("文章保存成功", {time:2000}, function(){
+                                location.reload();
+                            });
+                        } else{
+                            layer.msg("文章保存失败", {time:2000});
+                        }
+                    }
+                });
+            }
+        });
+    });
+
+    //图片上传
+    $list = $("#thelist"), state = "pending", uploader;
+    var uploader = WebUploader.create({
+        auto: true,
+        swf: '/static/backend/lib/webuploader/0.1.5/Uploader.swf',
+        // 文件接收服务端。
+        server: '/admin/place_img',
+        // 选择文件的按钮。可选。
+        // 内部根据当前运行是创建，可能是input元素，也可能是flash.
+        pick: '#picker',
+        // 不压缩image, 默认如果是jpeg，文件上传前会压缩一把再上传！
+        resize: false,
+        // 只允许选择图片文件。
+        accept: {
+            title: 'Images',
+            extensions: 'gif,jpg,jpeg,bmp,png',
+            mimeTypes: 'image/*'
+        }
+    });
+    uploader.on( 'fileQueued', function( file ) {
+        var $li = $(
+            '<div id="' + file.id + '" class="file-item thumbnail">' +
+            '<img>' +
+            '<div class="info">' + file.name + '</div>' +
+            '</div>'
+            ),
+            $img = $li.find('img');
+        // $list为容器jQuery实例
+        $list.append( $li );
+        // 创建缩略图
+        // 如果为非图片文件，可以不用调用此方法。
+        // thumbnailWidth x thumbnailHeight 为 100 x 100
+        uploader.makeThumb( file, function( error, src ) {
+            if ( error ) {
+                $img.replaceWith('<span>不能预览</span>');
+                return;
+            }
+            $img.attr( 'src', src );
+        }, 100, 100 );
+    });
+    // 文件上传过程中创建进度条实时显示。
+    uploader.on( 'uploadProgress', function( file, percentage ) {
+        var $li = $( '#'+file.id ),
+            $percent = $li.find('.progress span');
+
+        // 避免重复创建
+        if ( !$percent.length ) {
+            $percent = $('<p class="progress"><span></span></p>')
+                .appendTo( $li )
+                .find('span');
+        }
+
+        $percent.css( 'width', percentage * 100 + '%' );
+    });
+
+    // 文件上传成功，给item添加成功class, 用样式标记上传成功。
+    uploader.on( 'uploadSuccess', function( file, response ) {
+        $( '#'+file.id ).addClass('upload-state-done');
+        console.log(response.state);
+        if(response.state === 1) {
+            $("#L_img").val(response.pic_path);
+        }
+    });
+
+    // 文件上传失败，显示上传出错。
+    uploader.on( 'uploadError', function( file ) {
+        var $li = $( '#'+file.id ),
+            $error = $li.find('div.error');
+        // 避免重复创建
+        if ( !$error.length ) {
+            $error = $('<div class="error"></div>').appendTo( $li );
+        }
+        $error.text('上传失败');
+    });
+
+    // 完成上传完了，成功或者失败，先删除进度条。
+    uploader.on( 'uploadComplete', function( file ) {
+        $( '#'+file.id ).find('.progress').remove();
+    });
+
+    function member_stop(obj,id){
+        layer.confirm('确认操作吗？',function(index){
+            if($(obj).attr('title')=='停用'){
+                editStatus(id, 1);
+                //发异步把用户状态进行更改
+                $(obj).attr('title','启用');
+                $(obj).find('i').html('&#xe62f;');
+                $(obj).parents("tr").find(".td-status").find('span').addClass('layui-btn-disabled').html('已停用');
+                layer.msg('已停用!',{icon: 5,time:1000});
+            }else{
+                editStatus(id, 0);
+                $(obj).attr('title','停用');
+                $(obj).find('i').html('&#xe601;');
+                $(obj).parents("tr").find(".td-status").find('span').removeClass('layui-btn-disabled').html('已启用');
+                layer.msg('已启用!',{icon: 5,time:1000});
+            }
+        });
+    }
+
+    function editStatus(id, status) {
+        $.ajax({
+            type:'post',
+            dataType:'json',
+            async:false,
+            data:{
+                id: id,
+                status : status
+            },
+            url:'/admin/editArticleStatus',
+            success:function (data) {
+            }
+        });
+    }
+
+    function member_del(obj,id){
+        layer.confirm('确认要删除吗？',function(index){
+            $.ajax({
+                type:'post',
+                dataType:'json',
+                async:false,
+                data:{
+                    id: id
+                },
+                url:'/admin/delOneArticle',
+                success:function(data) {
+                    if(data.state == 1) {
+                        //发异步删除数据
+                        $(obj).parents("tr").remove();
+                        layer.msg('已删除!',{icon:1,time:1000});
+                    } else {
+                        layer.msg('删除失败!',{icon:1,time:1000});
+                    }
+                }
+            });
+        });
+    }
+
+    function delAll (argument) {
+        var data = tableCheck.getData();
+        layer.confirm('确认要删除吗？',function(index){
+
+            $.ajax({
+                type:'post',
+                dataType:'json',
+                async:false,
+                data:{
+                    ids : data
+                },
+                url:'/admin/delAllArticle',
+                success:function(data) {
+                    if(data.state == 1) {
+                        // 捉到所有被选中的，发异步进行删除
+                        layer.msg('删除成功', {icon: 1});
+                        $(".layui-form-checked").not('.header').parents('tr').remove();
+                    } else {
+                        layer.msg('删除失败', {icon: 1});
+                    }
+                }
+            });
+        });
+    }
+</script>
+{/block}

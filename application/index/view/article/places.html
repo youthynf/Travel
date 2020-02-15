@@ -1,0 +1,110 @@
+{extend name="base" /}
+{block name="title"}简单旅行{/block}
+{block name="nav"}
+<li class="nav-item"><a href="/" class="nav-link">首页</a></li>
+<li class="nav-item active"><a href="/places" class="nav-link">景点</a></li>
+<li class="nav-item"><a href="/hotels" class="nav-link">酒店</a></li>
+<li class="nav-item"><a href="/restaurants" class="nav-link">餐厅</a></li>
+<li class="nav-item"><a href="/blogs" class="nav-link">分享</a></li>
+{/block}
+{block name="content"}
+<div class="hero-wrap js-fullheight" style="background-image: url('/static/front/images/bg_1.jpg');">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row no-gutters slider-text js-fullheight align-items-center justify-content-center" data-scrollax-parent="true">
+            <div class="col-md-9 text-center ftco-animate" data-scrollax=" properties: { translateY: '70%' }">
+                <h1 class="mb-3 bread" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">景区列表</h1>
+            </div>
+        </div>
+    </div>
+</div>
+<section class="ftco-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 sidebar order-md-last ftco-animate">
+                <div class="sidebar-wrap ftco-animate">
+                    <h3 class="heading mb-4">景区筛选</h3>
+                    <form action="/places" method="get">
+                        <div class="fields">
+                            城市：
+                            <div class="form-group">
+                                <input type="text" id="L_position" name="position" class="form-control" placeholder="" value="{$position}">
+                            </div>
+                            最低预算：
+                            <div class="form-group">
+                                <input type="text" id="L_minPrice" name="minPrice" class="form-control" placeholder="" value="{$minPrice}">
+                            </div>
+                            最高预算：
+                            <div class="form-group">
+                                <input type="text" id="L_maxPrice" name="maxPrice" class="form-control" placeholder="" value="{$maxPrice}">
+                            </div>
+                            <div class="form-group">
+                                <input type="submit" value="查询" class="btn btn-primary py-3 px-5">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div><!-- END-->
+            <div class="col-lg-9">
+                <div class="row">
+                    {volist name="place_list" id="place"}
+                    <div class="col-sm col-md-6 col-lg-4 ftco-animate">
+                        <div class="destination">
+                            <a href="/place/{$place.id}" class="img img-2 d-flex justify-content-center align-items-center" style="background-image: url({$place.img});">
+                                <div class="icon d-flex justify-content-center align-items-center">
+                                    <span class="icon-link"></span>
+                                </div>
+                            </a>
+                            <div class="text p-3">
+                                <div class="d-flex">
+                                    <div class="one">
+                                        <h3><a href="javascript:;">{$place.title}</a></h3>
+                                        <p class="rate">
+                                            <i class="icon-star"></i>
+                                            <i class="icon-star"></i>
+                                            <i class="icon-star"></i>
+                                            <i class="icon-star"></i>
+                                            <i class="icon-star-o"></i>
+                                            <span>8 Rating</span>
+                                        </p>
+                                    </div>
+                                    <div class="two">
+                                        <span class="price">¥{$place.price}</span>
+                                    </div>
+                                </div>
+                                <p>{$place.outline}</p>
+                                <p class="days"><span>{$place.duration}</span></p>
+                                <hr>
+                                <p class="bottom-area d-flex">
+                                    <span><i class="icon-map-o"></i> {$place.position}</span>
+                                    <span class="ml-auto"><a href="/place/{$place.id}">查看</a></span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    {/volist}
+                </div>
+                <div class="row mt-5">
+                    <div class="col text-center">
+                        <div class="block-27">
+                            <ul>
+                                {if condition="$place_list != null"}
+                                <li><a href="#">&lt;</a></li>
+                                <li class="active"><span>1</span></li>
+                                <!--<li><a href="#">2</a></li>-->
+                                <!--<li><a href="#">3</a></li>-->
+                                <!--<li><a href="#">4</a></li>-->
+                                <!--<li><a href="#">5</a></li>-->
+                                <li><a href="#">&gt;</a></li>
+                                {else /}
+                                找不到数据
+                                {/if}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div> <!-- .col-md-8 -->
+        </div>
+    </div>
+</section> <!-- .section -->
+{/block}
